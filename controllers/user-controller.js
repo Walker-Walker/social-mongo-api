@@ -4,7 +4,7 @@ const { db } = require("../models/User");
 
 
 
-//     addFriend,
+
 //     removeFriend
 
 const UserController = {
@@ -21,7 +21,7 @@ const UserController = {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
       .populate("friends") //left join table friends
-      .populate("thougts")
+      .populate("thoughts")
       .then((dbUserData) => {
         if (!dbUserData) {
          return res.status(404).json({ message: 'No user with that ID exists'})
@@ -66,5 +66,33 @@ const UserController = {
         })
         .catch(err => res.status(500).json(err));
        
+  },
+  addFriend(req, res){
+      User.findOneAndUpdate({_id:req.params.userId},{$addToSet:{friends: req.params.friendId}},{
+            new: true
+
+      })
+      .then(dbUserData => {
+          if (!dbUserData) {
+              return res.status(404).json({ message: 'No User with this Id'})
+          }
+          res.json(dbUserData);
+      })
+      .catch(err => res.status(500).json(err));
+  },
+
+  removeFriend(req, res) {
+      User.findOneAndUpdate({_id:req.params.userId},{$pull:{friends: req.params.friendId}},{
+          new: true
+      })
+      .then(dbUserData => {
+          if (!dbUserData) {
+              return res.status(404).json({ message: 'No User with this Id'})
+          }
+          res.json(dbUserData);
+      })
+      .catch(err => res.status(500).json(err));
   }
+
+
 };
