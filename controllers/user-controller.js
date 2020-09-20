@@ -1,5 +1,5 @@
 const { User, Thought } = require("../models/");
-const { db } = require("../models/User");
+
 
 
 
@@ -17,7 +17,7 @@ const UserController = {
         res.status(500).json(err);
       });
   },
-  getUserById(res, res) {
+  getUserById(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
       .populate("friends") //left join table friends
@@ -96,3 +96,5 @@ const UserController = {
 
 
 };
+
+module.exports = UserController;

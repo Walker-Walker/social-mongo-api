@@ -1,11 +1,11 @@
 const { Schema, model, Types } = require("mongoose");
 const moment = require("moment");
 
-const ReactionSchema = new Schema({
+const reactionSchema = new Schema({
   reactionId: {
     type: Schema.Types.ObjectId,
     default: function () {
-      new Types.ObjectId();
+      return new Types.ObjectId();
     },
   },
   reactionBody: {
@@ -13,7 +13,7 @@ const ReactionSchema = new Schema({
     required: true,
     maxlength: 280,
   },
-  username: {
+  userName: {
     type: String,
     required: "Username Required",
   },
@@ -55,7 +55,7 @@ const ReactionSchema = new Schema({
 
 // This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
 
+module.exports = reactionSchema;
 
 
-const Reaction = model("Reaction", ReactionSchema);
-module.exports = Reaction;
+
