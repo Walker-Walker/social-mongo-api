@@ -1,6 +1,6 @@
 # social-mongo-api
 
-# functionality
+# Functionality
 ` MongoDB and Mongoose ODM based social media application. Backend API CRUD routes,data models, and subdocuments are available and in working order. Currently there is no frontend.` 
 
 # Demo
